@@ -6,3 +6,6 @@ crash.log
 
 # For built boxes
 *.box
+
+# sh files containing commands to build AMIs and security keys
+*.sh
