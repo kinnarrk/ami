@@ -1,7 +1,7 @@
 {
     "variables": {
-        "aws_access_key": "",
-        "aws_secret_key": "{{env `MY_SECRET_KEY`}}",
+        "aws_access_key": "{{env `aws_access_key`}}",
+        "aws_secret_key": "{{env `aws_secret_key`}}",
         "ami_name": "csye6225_a4_",
         "aws_region": "us-east-1",
         "subnet_id": "subnet-1367f95e",
@@ -41,7 +41,13 @@
             ],
             "inline": [
                 "sudo apt update -y && sudo apt upgrade -y",
-                "sudo apt install apache2 -y"
+                "curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -",
+                "sudo apt install -y nodejs",
+                "sudo apt install -y build-essential",
+                "echo node-version",
+                "node -v",
+                "echo npm-version",
+                "npm -v"
             ]
         }
     ]
