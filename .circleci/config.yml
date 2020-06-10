@@ -12,7 +12,10 @@ jobs:
       # - python/install-deps
       # - python/save-cache
       - run:
-          command: sudo pip install awscli
+          command: |
+            sudo apt-get install python-setuptools
+            sudo easy_install pip
+            sudo pip install awscli
           name: Install AWS Cli
       - run:
           command: aws configure set region $aws_default_region
