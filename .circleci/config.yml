@@ -4,18 +4,49 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build-and-test:
+  build-image:
     executor: python/default
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+      # - python/load-cache
+      # - python/install-deps
+      # - python/save-cache
       - run:
-          command: ./manage.py test
-          name: Test
+          command: sudo pip install awscli
+          name: Install AWS Cli
+      - run:
+          command: aws configure set region $aws_default_region
+          name: AWS default region
+      - run:
+          command: sudo apt update -y && sudo apt-get install zip unzip -y
+          name: Install Zip
+      - run:
+          command: |
+            wget -q https://releases.hashicorp.com/packer/1.6.0/packer_1.6.0_linux_amd64.zip
+            unzip packer*.zip
+            chmod +x packer
+          name: Download and Install Packer
+      - run:
+          command: packer validate ami/ami.json
+          name: Validate Packer json template
+      - run:
+          command: |
+            packer build \
+              -var 'ami_name=csye6225_a4_ci_' \
+              -var 'source_ami=ami-068663a3c619dd892' \
+              -var 'ssh_username=ubuntu' \
+              ami/ami.json
+          name: Build AMI from Packer json template
 
 workflows:
-  main:
+  version: 2
+  pr-check:
     jobs:
-      - build-and-test
+      - build-image
+  build_deploy:
+    jobs:
+      - build-image:
+          filters:
+            branches:
+              only:
+                - master
