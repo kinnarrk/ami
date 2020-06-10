@@ -25,13 +25,14 @@ jobs:
             wget -q https://releases.hashicorp.com/packer/1.6.0/packer_1.6.0_linux_amd64.zip
             unzip packer*.zip
             chmod +x packer
+            ls
           name: Download and Install Packer
       - run:
-          command: packer validate ami/ami.json
+          command: ./packer validate ami/ami.json
           name: Validate Packer json template
       - run:
           command: |
-            packer build \
+            ./packer build \
               -var 'ami_name=csye6225_a4_ci_' \
               -var 'source_ami=ami-068663a3c619dd892' \
               -var 'ssh_username=ubuntu' \
