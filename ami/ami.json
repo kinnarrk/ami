@@ -3,14 +3,16 @@
         "aws_access_key": "{{env `aws_access_key`}}",
         "aws_secret_key": "{{env `aws_secret_key`}}",
         "ami_name": "csye6225_a4_",
-        "aws_region": "us-east-1",
-        "subnet_id": "subnet-1367f95e",
+        "aws_region": "{{env `aws_default_region`}}",
+        "subnet_id": "{{env `aws_subnet_id`}}",
         "source_ami": "ami-068663a3c619dd892",
-        "ssh_username": "ubuntu"
+        "ssh_username": "ubuntu",
+        "ami_users": "079111615792,440205144781"
     },
     "builders": [
         {
             "type": "amazon-ebs",
+            "ami_users": "{{user `ami_users`}}",
             "access_key": "{{user `aws_access_key`}}",
             "secret_key": "{{user `aws_secret_key`}}",
             "region": "{{user `aws_region`}}",
