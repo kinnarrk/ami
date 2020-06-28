@@ -34,7 +34,7 @@ jobs:
           command: |
             ./packer build \
               -var 'ami_name=csye6225_a4_ci_' \
-              -var 'source_ami=ami-068663a3c619dd892' \
+              -var 'source_ami=ami-0ac80df6eff0e70b5' \
               -var 'ssh_username=ubuntu' \
               ami/ami.json
           name: Build AMI from Packer json template
