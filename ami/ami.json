@@ -5,7 +5,7 @@
         "ami_name": "csye6225_a4_",
         "aws_region": "{{env `aws_default_region`}}",
         "subnet_id": "{{env `aws_subnet_id`}}",
-        "source_ami": "ami-068663a3c619dd892",
+        "source_ami": "ami-0ac80df6eff0e70b5",
         "ssh_username": "ubuntu",
         "ami_users": "079111615792,440205144781"
     },
@@ -49,7 +49,14 @@
                 "echo node-version",
                 "node -v",
                 "echo npm-version",
-                "npm -v"
+                "npm -v",
+                "sudo apt update -y",
+                "sudo apt-get install ruby -y",
+                "sudo apt-get install wget",
+                "cd /home/ubuntu",
+                "wget https://aws-codedeploy-{{user `aws_region`}}.s3.{{user `aws_region`}}.amazonaws.com/latest/install",
+                "chmod +x ./install",
+                "sudo ./install auto"
             ]
         }
     ]
