@@ -8,12 +8,12 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - run:
-          command: |
-            sudo apt-get install python-setuptools
-            sudo easy_install pip
-            sudo pip install awscli
-          name: Install AWS Cli
+      # - run:
+      #     command: |
+      #       sudo apt-get install python-setuptools
+      #       sudo easy_install pip
+      #       sudo pip install awscli
+      #     name: Install AWS Cli
       - run:
           command: aws configure set region $aws_default_region
           name: AWS default region
