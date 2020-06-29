@@ -14,9 +14,9 @@ jobs:
       #       sudo easy_install pip
       #       sudo pip install awscli
       #     name: Install AWS Cli
-      - run:
-          command: aws configure set region $aws_default_region
-          name: AWS default region
+      # - run:
+      #     command: aws configure set region $aws_default_region
+      #     name: AWS default region
       - run:
           command: sudo apt update -y && sudo apt-get install zip unzip -y
           name: Install Zip
