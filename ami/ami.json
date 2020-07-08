@@ -39,12 +39,12 @@
         {
             "type": "file",
             "source": "amazon-cloudwatch-agent.json",
-            "destination": "/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json"
+            "destination": "/home/ubuntu/amazon-cloudwatch-agent.json"
         },
         {
             "type": "file",
             "source": "cloudwatch.service",
-            "destination": "/etc/systemd/system/cloudwatch.service"
+            "destination": "/home/ubuntu/cloudwatch.service"
         },
         {
             "type": "shell",
@@ -68,16 +68,13 @@
                 "chmod +x ./install",
                 "sudo ./install auto",
                 "wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb",
-                "wget https://s3.amazonaws.com/amazoncloudwatch-agent/assets/amazon-cloudwatch-agent.gpg",
-                "gpg --import amazon-cloudwatch-agent.gpg",
-                "echo ~remove echo till this gpg --fingerprint key-value",
-                "wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb.sig",
-                "gpg --verify amazon-cloudwatch-agent.deb.sig amazon-cloudwatch-agent.deb",
                 "sudo dpkg -i -E ./amazon-cloudwatch-agent.deb",
-                "sudo chmod 644 /etc/systemd/system/cloudwatch.service",
-                "sudo systemctl enable cloudwatch",
-                "sudo systemctl start cloudwatch",
-                "sudo systemctl status cloudwatch"
+                "sudo mkdir -p /opt/aws/amazon-cloudwatch-agent/etc/",
+                "sudo cp /home/ubuntu/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",
+                "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",                
+                "sudo systemctl enable amazon-cloudwatch-agent",
+                "sudo systemctl start amazon-cloudwatch-agent",
+                "sudo systemctl status amazon-cloudwatch-agent"
             ]
         }
     ]
