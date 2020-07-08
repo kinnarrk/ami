@@ -17,6 +17,6 @@
             }
         },
         "log_stream_name": "cloudwatch_log_stream",
-        "force_flush_interval" : 60
+        "force_flush_interval" : 30
     }
 }

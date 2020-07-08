@@ -28,7 +28,7 @@ jobs:
             ls
           name: Download and Install Packer
       - run:
-          command: ./packer validate ami/ami.json
+          command: ./packer validate ami.json
           name: Validate Packer json template
       - run:
           command: |
@@ -36,7 +36,7 @@ jobs:
               -var 'ami_name=csye6225_a4_ci_' \
               -var 'source_ami=ami-0ac80df6eff0e70b5' \
               -var 'ssh_username=ubuntu' \
-              ami/ami.json
+              ami.json
           name: Build AMI from Packer json template
 
 workflows:
