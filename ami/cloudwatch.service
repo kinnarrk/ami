@@ -1,0 +1,16 @@
+[Unit]
+Description=Cloudwatch systemd service.
+After=network.target
+StartLimitIntervalSec=0
+StandardOutput=file:/var/log/cloudwatchout.log
+StandardError=file:/var/log/cloudwatcherr.log
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=ubuntu
+ExecStart=/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+
+[Install]
+WantedBy=multi-user.target

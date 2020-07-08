@@ -37,6 +37,16 @@
     ],
     "provisioners": [
         {
+            "type": "file",
+            "source": "amazon-cloudwatch-agent.json",
+            "destination": "/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json"
+        },
+        {
+            "type": "file",
+            "source": "cloudwatch.service",
+            "destination": "/etc/systemd/system/cloudwatch.service"
+        },
+        {
             "type": "shell",
             "environment_vars": [
                 "FOO=foo"
@@ -56,7 +66,18 @@
                 "cd /home/ubuntu",
                 "wget https://aws-codedeploy-{{user `aws_region`}}.s3.{{user `aws_region`}}.amazonaws.com/latest/install",
                 "chmod +x ./install",
-                "sudo ./install auto"
+                "sudo ./install auto",
+                "wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb",
+                "wget https://s3.amazonaws.com/amazoncloudwatch-agent/assets/amazon-cloudwatch-agent.gpg",
+                "gpg --import amazon-cloudwatch-agent.gpg",
+                "echo ~remove echo till this gpg --fingerprint key-value",
+                "wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb.sig",
+                "gpg --verify amazon-cloudwatch-agent.deb.sig amazon-cloudwatch-agent.deb",
+                "sudo dpkg -i -E ./amazon-cloudwatch-agent.deb",
+                "sudo chmod 644 /etc/systemd/system/cloudwatch.service",
+                "sudo systemctl enable cloudwatch",
+                "sudo systemctl start cloudwatch",
+                "sudo systemctl status cloudwatch"
             ]
         }
     ]
