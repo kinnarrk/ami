@@ -72,9 +72,7 @@
                 "sudo mkdir -p /opt/aws/amazon-cloudwatch-agent/etc/",
                 "sudo cp /home/ubuntu/amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",
                 "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",                
-                "sudo systemctl enable amazon-cloudwatch-agent",
-                "sudo systemctl start amazon-cloudwatch-agent",
-                "sudo systemctl status amazon-cloudwatch-agent"
+                "sudo systemctl enable amazon-cloudwatch-agent"
             ]
         }
     ]
